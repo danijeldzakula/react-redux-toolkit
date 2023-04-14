@@ -9,7 +9,7 @@ export default function Products(props) {
 
   return (
     <Layout title="Products">
-      <article>
+      <article style={{ overflow: "hidden" }}>
         <section className="section section__products">
           <div className="container">
             <div className="left"></div>
@@ -32,7 +32,7 @@ export async function getServerSideProps(context) {
   let data = [];
 
   try {
-    await axios.get(products_url).then((res) => {
+    await axios.get(products_url + 1).then((res) => {
       if (res.status === 200) {
         data = res.data;
       }

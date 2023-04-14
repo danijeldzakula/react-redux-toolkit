@@ -1,10 +1,13 @@
 import Layout from "@/layouts/Layout";
+import Canvas from "./canvas/Canvas";
 
 export default function Home() {
   return (
     <Layout title="Home">
-      <article style={{ display: "grid", justifyContent: "center" }}>
-        <h1>Home</h1>
+      <article style={{ overflow: "hidden" }}>
+        <section className="section section__hero">
+          <Canvas />
+        </section>
       </article>
     </Layout>
   );

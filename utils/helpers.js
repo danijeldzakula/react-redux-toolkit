@@ -14,4 +14,10 @@ export const getUniqueValues = (data, type) => {
   return ["all", ...new Set(unique)];
 };
 
+export const isCheckString = (str) => {
+  return str ? str : "";
+};
 
+export const isCheckObject = (obj) => {
+  return obj ? obj : {};
+};

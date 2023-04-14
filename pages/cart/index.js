@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Layout from "@/layouts/Layout";
@@ -13,6 +13,8 @@ import {
   getTotalAmount,
   getCartProducts,
 } from "@/store/reducers/cartSlice";
+import { formatPrice } from "@/utils/helpers";
+import useIsomorphicLayoutEffect from "@/hooks/useLayoutEffect";
 
 export default function Cart(props) {
   const cart = useSelector((state) => state.cart);
@@ -42,10 +44,10 @@ export default function Cart(props) {
     handleDispatch();
   };
 
-  useEffect(() => {}, [dispatch]);
+  useIsomorphicLayoutEffect(() => {}, [dispatch]);
 
   return (
-    <Layout title="Shopping Cart">
+    <Layout title="Cart">
       <article>
         <section className="section section__cart">
           <div className="container">
@@ -69,23 +71,28 @@ export default function Cart(props) {
                       </Link>
 
                       <div className="actions">
-                        <button
-                          onClick={() => handleIncrement(item.id)}
-                          type="button"
-                        >
-                          <span className="text">Increment</span>
-                        </button>
-                        <p>{item.quantity}</p>
-                        <button
-                          onClick={() => handleDecrement(item.id)}
-                          type="button"
-                        >
-                          <span className="text">Decrement</span>
-                        </button>
+                        <div className="counter">
+                          <button
+                            onClick={() => handleIncrement(item.id)}
+                            type="button"
+                            className="btn"
+                          >
+                            <span className="text">+</span>
+                          </button>
+                          <p>{item.quantity}</p>
+                          <button
+                            onClick={() => handleDecrement(item.id)}
+                            type="button"
+                            className="btn"
+                          >
+                            <span className="text">-</span>
+                          </button>
+                        </div>
 
                         <button
                           onClick={() => handleRemove(item.id)}
                           type="button"
+                          className="btn"
                         >
                           <span className="text">Remove</span>
                         </button>
@@ -103,9 +110,9 @@ export default function Cart(props) {
 
             {cartItems && cartItems.length > 0 && (
               <div>
-                <p>Sub: {cart.subAmount}</p>
-                <p>Tax: {cart.tax}</p>
-                <p>Total: {cart.totalAmount}</p>
+                <p>Sub: {formatPrice(cart.subAmount)}</p>
+                <p>Tax: {formatPrice(cart.tax)}</p>
+                <p>Total: {formatPrice(cart.totalAmount)}</p>
               </div>
             )}
           </div>

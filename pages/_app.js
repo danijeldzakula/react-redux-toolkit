@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import Head from "next/head";
 import { Router } from "next/router";
 import { persistStore } from "redux-persist";
@@ -6,6 +6,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import NextNProgress from "nextjs-progressbar";
 import store from "@/store/store";
+import useIsomorphicLayoutEffect from "@/hooks/useLayoutEffect";
 import "@/styles/globals.css";
 
 let persistor = persistStore(store);
@@ -18,7 +19,7 @@ function MyApp(props) {
     loadingKey: 0,
   });
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const start = () => {
       setIsLoading((prevState) => {
         return {
